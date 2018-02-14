@@ -8,7 +8,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //OJ push test
+        //OJ push testw
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
