@@ -3,6 +3,7 @@ package cs321.patriotbuddy;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+//added comment
 public class MainActivity extends AppCompatActivity {
 
     @Override
