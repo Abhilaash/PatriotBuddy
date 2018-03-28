@@ -11,4 +11,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+
+    protected void showLoginScreen(){
+
+
+
+    }
+
+
+    protected profile attemptToLogin()
+    {
+        profile retVal;
+
+        return retVal;
+    }
+
+
+    protected loginSuccess()
+    {
+
+
+    }
+
+    protected profile signUp()
+    {
+        profile retVal;
+        return retVal;
+    }
+
+
+
 }
