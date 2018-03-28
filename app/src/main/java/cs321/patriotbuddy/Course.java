@@ -7,30 +7,45 @@ package cs321.patriotbuddy;
 public class Course {
 
 
+    String crn;
+    String courseCode;
+    String professor;
 
-    public String crn()
+
+
+    public String getCrn()
     {
-        String retVal;
-
-        return retVal;
+        return this.crn;
     }
 
-
-    public String courseCode()
+    public void setCrn(String crs)
     {
-        String retval;
-
-        return retval;
-
-    }
-
-    public String professor()
-    {
-        String retVal;
-        return retVal;
+        this.crn=crs;
 
     }
 
+    public String getCourseCode()
+    {
 
+        return this.courseCode;
+
+    }
+
+    public void setCourseCode(String crsCode)
+    {
+
+        this.courseCode=crsCode;
+    }
+
+    public String getProfessor()
+    {
+
+        return this.professor;
+
+    }
+    public String setProfessor(String prf)
+    {
+        this.professor=prf;
+    }
 
 }

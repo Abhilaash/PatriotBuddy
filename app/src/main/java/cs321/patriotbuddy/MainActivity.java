@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    protected profile attemptToLogin()
+    protected Profile attemptToLogin()
     {
-        profile retVal;
+        Profile retVal;
 
         return retVal;
     }
@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected profile signUp()
+    protected Profile signUp()
     {
-        profile retVal;
+        Profile retVal;
         return retVal;
     }
 
