@@ -6,31 +6,7 @@ package cs321.patriotbuddy;
 
 public class Course {
 
-
-
-    public String crn()
-    {
-        String retVal;
-
-        return retVal;
-    }
-
-
-    public String courseCode()
-    {
-        String retval;
-
-        return retval;
-
-    }
-
-    public String professor()
-    {
-        String retVal;
-        return retVal;
-
-    }
-
-
-
+    public String crn = "";
+    public String courseCode = "";
+    public String professor = "";
 }

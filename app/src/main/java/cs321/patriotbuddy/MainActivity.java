@@ -21,27 +21,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    protected profile attemptToLogin()
+    protected Profile attemptToLogin()
     {
-        profile retVal;
-
-        return retVal;
+        return null;
     }
 
 
-    protected loginSuccess()
+    protected void loginSuccess()
     {
 
 
     }
 
-    protected profile signUp()
+    protected Profile signUp()
     {
-        profile retVal;
-        return retVal;
+        return null;
     }
-
-
-
-
 }
