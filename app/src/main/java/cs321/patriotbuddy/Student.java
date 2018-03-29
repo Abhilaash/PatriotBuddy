@@ -12,7 +12,8 @@ public class Student implements Messagable{
     protected ArrayList<Student> friends;
     protected ArrayList<Course> courses;
 
-    public Student() {
+    public Student(String name) {
+        this.name = name;
         friends = new ArrayList<Student>();
         courses = new ArrayList<Course>();
     }
