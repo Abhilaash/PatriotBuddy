@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected void showLoginScreen(View view) {
-        intent = new Intent(this, Login.class);
+        intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
