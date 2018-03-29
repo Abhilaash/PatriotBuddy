@@ -6,46 +6,7 @@ package cs321.patriotbuddy;
 
 public class Course {
 
-
-    String crn;
-    String courseCode;
-    String professor;
-
-
-
-    public String getCrn()
-    {
-        return this.crn;
-    }
-
-    public void setCrn(String crs)
-    {
-        this.crn=crs;
-
-    }
-
-    public String getCourseCode()
-    {
-
-        return this.courseCode;
-
-    }
-
-    public void setCourseCode(String crsCode)
-    {
-
-        this.courseCode=crsCode;
-    }
-
-    public String getProfessor()
-    {
-
-        return this.professor;
-
-    }
-    public String setProfessor(String prf)
-    {
-        this.professor=prf;
-    }
-
+    public String crn = "";
+    public String courseCode = "";
+    public String professor = "";
 }

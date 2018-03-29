@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 //added comment
+//zacs test commit
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -22,13 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
     protected Profile attemptToLogin()
     {
-        Profile retVal;
-
-        return retVal;
+        return null;
     }
 
 
-    protected loginSuccess()
+    protected void loginSuccess()
     {
 
 
@@ -36,11 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     protected Profile signUp()
     {
-        Profile retVal;
-        return retVal;
+        return null;
     }
-
-
-
-
 }
