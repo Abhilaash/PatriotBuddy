@@ -6,6 +6,15 @@ package cs321.patriotbuddy;
 
 public class Profile extends Student {
 
+    public void addCourse(Course course){
+        courses.add(course);
+    }
 
+    public void removeCourse(Course course){
+        courses.remove(course);
+    }
 
+    public void changeName(String newName){
+        name = newName;
+    }
 }
