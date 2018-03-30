@@ -6,6 +6,6 @@ package cs321.patriotbuddy;
 
 public interface Messagable {
 
-
-
+    public void sendMessage(String message);
+    public void recieveMessage(String message);
 }
