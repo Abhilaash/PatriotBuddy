@@ -14,6 +14,9 @@ public class Profile extends Student implements Serializable {
 
     public void addCourse(Course course){
         courses.add(course);
+
+
+
     }
 
     public void removeCourse(Course course){
