@@ -1,11 +1,12 @@
 package cs321.patriotbuddy;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by mr.banskota on 3/28/18.
  */
 
-public class Student implements Messagable{
+public class Student implements Messagable, Serializable{
 
     protected String name = "";
 
