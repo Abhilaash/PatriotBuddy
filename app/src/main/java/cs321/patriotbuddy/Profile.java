@@ -12,6 +12,9 @@ public class Profile extends Student {
 
     public void addCourse(Course course){
         courses.add(course);
+
+
+
     }
 
     public void removeCourse(Course course){
