@@ -12,12 +12,7 @@ public class Profile extends Student implements Serializable {
         super(name);
     }
 
-    public void addCourse(Course course){
-        courses.add(course);
-
-
-
-    }
+    public void addCourse(Course course){ courses.add(course); }
 
     public void removeCourse(Course course){
         courses.remove(course);
