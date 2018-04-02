@@ -23,6 +23,11 @@ public class Student implements Messagable, Serializable{
 
     }
 
+    @Override
+    public void receiveMessage(String message) {
+
+    }
+
     public void recieveMessage(String message) {
 
     }

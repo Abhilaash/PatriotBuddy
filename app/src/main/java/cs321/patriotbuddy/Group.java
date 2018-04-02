@@ -30,4 +30,13 @@ public class Group implements Messagable {
     }
 
 
+    @Override
+    public void sendMessage(String message) {
+
+    }
+
+    @Override
+    public void receiveMessage(String message) {
+
+    }
 }
