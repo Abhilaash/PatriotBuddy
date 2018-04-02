@@ -21,19 +21,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    protected Profile attemptToLogin() {
-        return null;
-    }
-
-
-    protected void loginSuccess() {
-
-
-    }
-
     protected void showRegisterScreen(View view) {
-        intent = new Intent(this, Register.class);
+        intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 }
