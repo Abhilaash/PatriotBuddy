@@ -19,8 +19,8 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ProfileDisplay"></activity>
-        <activity android:name=".ProfileEdit"></activity>
+        <activity android:name=".ProfileDisplay" />
+        <activity android:name=".ProfileEdit" />
     </application>
 
 </manifest>
