@@ -19,7 +19,7 @@ public class Course implements Serializable {
     }
 
     public boolean equals(Course c){
-        return crn.equals(c.crn) && courseCode.equals(c.courseCode) && professor.equals(c.professor);
+        return crn.equals(c.crn);
     }
 
     public String toString(){
