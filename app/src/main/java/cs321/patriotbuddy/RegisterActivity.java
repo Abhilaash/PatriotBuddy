@@ -41,19 +41,17 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.e("HELLO", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-//                            user.sendEmailVerification()
-//                                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<Void> task) {
-//
-//                                            // [END_EXCLUDE]
-//                                        }
-//                                    });
-                            Intent intent = new Intent(RegisterActivity.this, ProfileDisplay.class);
-                            intent.putExtra("user", user);
-                            intent.putExtra("username", email);
-                            startActivity(intent);
+                            final FirebaseUser user = mAuth.getCurrentUser();
+                            user.sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Intent intent = new Intent(RegisterActivity.this, ProfileDisplay.class);
+                                            intent.putExtra("user", user);
+                                            intent.putExtra("username", email);
+                                            startActivity(intent);
+                                        }
+                                    });
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.e("HELLO", "createUserWithEmail:failure", task.getException());
