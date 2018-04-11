@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cs321.patriotbuddy">
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/mason_logo"
@@ -21,6 +20,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ProfileDisplay" />
         <activity android:name=".ProfileEdit" />
+        <activity android:name=".FriendsDisplay"></activity>
     </application>
 
 </manifest>

@@ -4,26 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileDisplay">
-
-    <TextView
-        android:id="@+id/nameText"
-        android:layout_width="132dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/classList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:text="text" />
+    tools:context=".FriendsDisplay">
 
     <ListView
-        android:id="@+id/classList"
+        android:id="@+id/friendsList"
         android:layout_width="368dp"
         android:layout_height="406dp"
         android:layout_marginBottom="16dp"
@@ -32,22 +16,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/editButton"
+    <TextView
+        android:id="@+id/friendsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:onClick="edit"
-        android:text="Edit"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Friends and Groups"
+        app:layout_constraintBottom_toTopOf="@+id/friendsList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addFriends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Friends"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

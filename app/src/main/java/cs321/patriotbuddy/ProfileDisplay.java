@@ -69,4 +69,10 @@ public class ProfileDisplay extends AppCompatActivity {
         intent.putExtra("Profile", profile);
         startActivityForResult(intent, 1);
     }
+
+    protected void showFriends(View view){
+        Intent intent = new Intent(this, FriendsDisplay.class);
+        intent.putExtra("Profile", profile);
+        startActivityForResult(intent, 1);
+    }
 }

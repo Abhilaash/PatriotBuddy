@@ -11,12 +11,12 @@ import android.view.LayoutInflater;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DeleteItemListAdapter<T> extends BaseAdapter implements ListAdapter {
+public class DeleteClassListAdapter<T> extends BaseAdapter implements ListAdapter {
 
     private ArrayList<T> list = new ArrayList<T>();
     private Context context;
 
-    public DeleteItemListAdapter(Context context, T[] array) {
+    public DeleteClassListAdapter(Context context, T[] array) {
         this.list = new ArrayList<T>(Arrays.asList(array));
         this.context = context;
     }

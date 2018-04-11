@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -17,7 +16,7 @@ public class ProfileEdit extends AppCompatActivity {
     private EditText nameText;
     private SearchView searchView;
     private ListView classList;
-    private DeleteItemListAdapter<Course> adapter;
+    private DeleteClassListAdapter<Course> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +84,7 @@ public class ProfileEdit extends AppCompatActivity {
 
         ArrayList<Course> searches = new ArrayList<Course>();
         for(int i = 0; i < allCourses.size(); i++){
-            if(allCourses.get(i).crn.contains(crn)){
+            if(allCourses.get(i).crn.contains(crn) && !profile.isRegisteredFor(allCourses.get(i))){
                 searches.add(allCourses.get(i));
             }
         }
@@ -97,7 +96,7 @@ public class ProfileEdit extends AppCompatActivity {
     private void setRegisteredCourseAdapter(){
 
         Course[] c = profile.getCourses();
-        adapter = new DeleteItemListAdapter<Course>(this, c);
+        adapter = new DeleteClassListAdapter<Course>(this, c);
         classList.setAdapter(adapter);
     }
 

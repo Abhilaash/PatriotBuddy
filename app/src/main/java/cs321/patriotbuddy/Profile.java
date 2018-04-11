@@ -18,6 +18,8 @@ public class Profile extends Student implements Serializable {
         courses.remove(course);
     }
 
+    public boolean isRegisteredFor(Course course) { return courses.contains(course); }
+
     public void changeName(String newName){
         name = newName;
     }
