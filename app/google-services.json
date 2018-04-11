@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1076615661590",
+    "firebase_url": "https://patriotbuddy-20191.firebaseio.com",
+    "project_id": "patriotbuddy-20191",
+    "storage_bucket": "patriotbuddy-20191.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076615661590:android:26dac66cd31c2988",
+        "android_client_info": {
+          "package_name": "cs321.patriotbuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076615661590-sqm6ep2re1nimfnq0np3ubkoiv0ftill.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDXSOwzAxQ_saZpRlRv0Bol5Gp1Dn3Qm4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
