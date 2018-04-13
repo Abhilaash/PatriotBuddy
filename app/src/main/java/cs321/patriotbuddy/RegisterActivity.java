@@ -31,9 +31,10 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         EditText emailText = findViewById(R.id.email);
         final String email = emailText.getText().toString();
-        EditText passwordText = findViewById(R.id.email);
+        EditText passwordText = findViewById(R.id.password);
         String password = passwordText.getText().toString();
-
+        Log.e("Email: ", email);
+        Log.e("Password: ", password);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -53,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         }
                                     });
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // If registration in fails, display a message to the user.
                             Log.e("HELLO", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
