@@ -27,7 +27,7 @@ public class ProfileEdit extends AppCompatActivity {
         nameText.setText(profile.name);
 
         ArrayList<Course> c = profile.getCourses();
-        adapter = new DeleteItemListAdapter<Course>(this, c);
+       // adapter = new DeleteItemListAdapter<Course>(this, c);
 
         ListView classList = findViewById(R.id.classList);
         classList.setAdapter(adapter);
