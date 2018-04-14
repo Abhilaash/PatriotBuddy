@@ -8,6 +8,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+
 public class ProfileDisplay extends AppCompatActivity {
 
     private Profile profile;
@@ -25,6 +29,7 @@ public class ProfileDisplay extends AppCompatActivity {
             profile.addCourse(c1);
             profile.addCourse(c2);
             profile.addCourse(c3);
+            profile.getCourses();
         }
 
         setUpDisplay();
@@ -46,9 +51,8 @@ public class ProfileDisplay extends AppCompatActivity {
         TextView nameText = findViewById(R.id.nameText);
         nameText.setText(profile.name);
 
-        Course[] c = profile.getCourses();
-        ArrayAdapter<Course> adapter = new ArrayAdapter<Course>(this,
-                R.layout.listview, c);
+        ArrayList<Course> c = profile.getCourses();
+        ArrayAdapter<Course> adapter = new ArrayAdapter<Course>(this, R.layout.listview, c);
 
         ListView classList = findViewById(R.id.classList);
         classList.setAdapter(adapter);

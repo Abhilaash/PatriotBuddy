@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 public class ProfileEdit extends AppCompatActivity {
 
     private Profile profile;
@@ -24,7 +26,7 @@ public class ProfileEdit extends AppCompatActivity {
         nameText = findViewById(R.id.editText);
         nameText.setText(profile.name);
 
-        Course[] c = profile.getCourses();
+        ArrayList<Course> c = profile.getCourses();
         adapter = new DeleteItemListAdapter<Course>(this, c);
 
         ListView classList = findViewById(R.id.classList);
@@ -35,10 +37,10 @@ public class ProfileEdit extends AppCompatActivity {
 
         profile.name = nameText.getText().toString();
 
-        Course[] c = profile.getCourses();
-        for(int i = 0; i < c.length; i++){
-            if(!adapter.contains(c[i])){
-                profile.removeCourse(c[i]);
+        ArrayList<Course> c = profile.getCourses();
+        for(int i = 0; i < c.size(); i++){
+            if(!adapter.contains(c.get(i))){
+                profile.removeCourse(c.get(i));
             }
         }
 

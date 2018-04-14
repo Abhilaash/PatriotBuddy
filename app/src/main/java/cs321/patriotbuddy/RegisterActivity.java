@@ -16,25 +16,43 @@ import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.security.PrivateKey;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase db=FirebaseDatabase.getInstance();
+    private DatabaseReference myRef;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
+
+
     }
 
     public void register(View view) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
+        EditText nameText=findViewById(R.id.name_register);
+        final String name_text2= nameText.getText().toString();
         EditText emailText = findViewById(R.id.email);
         final String email = emailText.getText().toString();
         EditText passwordText = findViewById(R.id.password);
         String password = passwordText.getText().toString();
         Log.e("Email: ", email);
         Log.e("Password: ", password);
+
+        Profile np=new Profile(name_text2);
+        myRef=db.getReference("User//"+ np.getPname());
+        myRef.setValue(np);
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

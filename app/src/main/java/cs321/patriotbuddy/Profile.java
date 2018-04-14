@@ -1,6 +1,7 @@
 package cs321.patriotbuddy;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by mr.banskota on 3/28/18.
@@ -8,22 +9,56 @@ import java.io.Serializable;
 
 public class Profile extends Student implements Serializable {
 
+    ArrayList<Course> myCourse = new ArrayList<Course>();
+    String pname="";
+
     public Profile(String name){
         super(name);
+        this.pname=name;
+
     }
+    public void addCourse(Course course){
+        for(Course x:myCourse) {
+            if(!x.equals(course))
+            {
+                myCourse.add(course);
+            }
+            else
+            {
+                //Check to see if the print statement is supposed to be displayed like this
+                System.out.println("The course already exists in the schedule");
+            }
+        }
 
-    public void addCourse(Course course){ courses.add(course); }
-
+    }
     public void removeCourse(Course course){
-        courses.remove(course);
+        for(Course x:myCourse)
+        {
+            if(x.equals(course))
+            {
+                myCourse.remove(x);
+
+            }
+            else
+            {
+                //check this to make sure how it needs to be displayed
+                System.out.println("The course you are trying to remove does not exist");
+            }
+
+        }
+
+    }
+    public ArrayList<Course> getCourses(){
+        return myCourse;
     }
 
-    public void changeName(String newName){
-        name = newName;
+    public String getPname()
+    {
+        return this.pname;
     }
 
-    public Course[] getCourses(){
-        Course[] c = new Course[courses.size()];
-        return courses.toArray(c);
+    public void setPname(String temp)
+    {
+        this.pname=temp;
     }
 }
