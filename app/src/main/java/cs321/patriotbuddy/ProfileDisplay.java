@@ -27,14 +27,23 @@ public class ProfileDisplay extends AppCompatActivity {
             Course c6 = new Course("495", "CS 325", "Dr. G");
             Course c7 = new Course("495", "CS 325", "Dr. G");
             Course c8 = new Course("495", "CS 325", "Dr. G");
-            profile.addCourse(c1);
-            profile.addCourse(c2);
-            profile.addCourse(c3);
-            profile.addCourse(c4);
-            profile.addCourse(c5);
-            profile.addCourse(c6);
-            profile.addCourse(c7);
-            profile.addCourse(c8);
+            profile.courses.add(c1);
+            profile.courses.add(c2);
+            profile.courses.add(c3);
+            profile.courses.add(c4);
+            profile.courses.add(c5);
+            profile.courses.add(c6);
+            profile.courses.add(c7);
+            profile.courses.add(c8);
+            profile.friends.add(new Student("Jack"));
+            profile.friends.add(new Student("John"));
+            profile.friends.add(new Student("Jill"));
+            profile.friends.add(new Student("Joe"));
+            profile.friends.add(new Student("Jeff"));
+            profile.friends.add(new Student("Jace"));
+            profile.friends.add(new Student("Jen"));
+            profile.friends.add(new Student("Jenson"));
+            profile.friends.add(new Student("Jeremiah"));
         }
 
         setUpDisplay();

@@ -84,7 +84,7 @@ public class ProfileEdit extends AppCompatActivity {
 
         ArrayList<Course> searches = new ArrayList<Course>();
         for(int i = 0; i < allCourses.size(); i++){
-            if(allCourses.get(i).crn.contains(crn) && !profile.isRegisteredFor(allCourses.get(i))){
+            if(allCourses.get(i).crn.contains(crn) && !profile.courses.contains(allCourses.get(i))){
                 searches.add(allCourses.get(i));
             }
         }
@@ -140,7 +140,7 @@ public class ProfileEdit extends AppCompatActivity {
         Course[] c = profile.getCourses();
         for(int i = 0; i < c.length; i++){
             if(!adapter.contains(c[i])){
-                profile.removeCourse(c[i]);
+                profile.courses.remove(c[i]);
             }
         }
 
@@ -150,5 +150,4 @@ public class ProfileEdit extends AppCompatActivity {
 
         finish();
     }
-
 }

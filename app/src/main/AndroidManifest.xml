@@ -20,7 +20,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ProfileDisplay" />
         <activity android:name=".ProfileEdit" />
-        <activity android:name=".FriendsDisplay"></activity>
+        <activity android:name=".FriendsDisplay" />
+        <activity android:name=".AddFriends"></activity>
     </application>
 
 </manifest>
