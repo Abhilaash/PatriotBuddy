@@ -11,7 +11,7 @@ public class Student implements Messagable, Serializable{
     protected String name = "";
 
     protected ArrayList<Student> friends;
-    protected ArrayList<Course> courses;
+    public ArrayList<Course> courses;
 
     public Student(String name) {
         this.name = name;

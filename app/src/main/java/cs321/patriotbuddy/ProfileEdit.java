@@ -16,7 +16,7 @@ public class ProfileEdit extends AppCompatActivity {
     private EditText nameText;
     private SearchView searchView;
     private ListView classList;
-    private DeleteClassListAdapter<Course> adapter;
+    private TextButtonListAdapter<Course> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,14 +89,47 @@ public class ProfileEdit extends AppCompatActivity {
             }
         }
 
-        AddClassListAdapter<Course> searchAdapter = new AddClassListAdapter<Course>(this, searches, profile);
+        TextButtonListAdapter<Course> searchAdapter = new TextButtonListAdapter<Course>(this,
+                searches, "Add");
+
+        class AddItemTextButtonListener extends TextButtonListAdapter.TextButtonListener {
+            @Override
+            public TextButtonListAdapter.TextButtonListener clone(){
+                return new AddItemTextButtonListener();
+            }
+
+            @Override
+            public void onClick(View v) {
+                profile.courses.add((Course) adapter.list.get(position));
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        AddItemTextButtonListener addListener = new AddItemTextButtonListener();
+        searchAdapter.listener = new AddItemTextButtonListener();
+
         classList.setAdapter(searchAdapter);
     }
 
     private void setRegisteredCourseAdapter(){
 
-        Course[] c = profile.getCourses();
-        adapter = new DeleteClassListAdapter<Course>(this, c);
+        adapter = new TextButtonListAdapter<Course>(this,
+                profile.courses, "Delete");
+
+        class DeleteItemTextButtonListener extends TextButtonListAdapter.TextButtonListener {
+            @Override
+            public TextButtonListAdapter.TextButtonListener clone(){
+                return new DeleteItemTextButtonListener();
+            }
+
+            @Override
+            public void onClick(View v) {
+                profile.courses.remove(position);
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        adapter.listener = new DeleteItemTextButtonListener();
         classList.setAdapter(adapter);
     }
 
@@ -117,4 +150,5 @@ public class ProfileEdit extends AppCompatActivity {
 
         finish();
     }
+
 }
