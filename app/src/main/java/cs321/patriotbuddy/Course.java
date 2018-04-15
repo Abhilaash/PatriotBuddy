@@ -18,7 +18,8 @@ public class Course implements Serializable {
         this.professor = professor;
     }
 
-    public boolean equals(Course c){
+    public boolean equals(Object o){
+        Course c = (Course) o;
         return crn.equals(c.crn);
     }
 

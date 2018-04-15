@@ -10,7 +10,7 @@ public class Student implements Messagable, Serializable{
 
     protected String name = "";
 
-    protected ArrayList<Student> friends;
+    public ArrayList<Student> friends;
     public ArrayList<Course> courses;
 
     public Student(String name) {
@@ -25,5 +25,9 @@ public class Student implements Messagable, Serializable{
 
     public void receiveMessage(String message) {
 
+    }
+
+    public String toString(){
+        return name;
     }
 }

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TextButtonListAdapter<T> extends BaseAdapter implements ListAdapter {
 
@@ -48,22 +47,22 @@ public class TextButtonListAdapter<T> extends BaseAdapter implements ListAdapter
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.listviewadd, null);
+            view = inflater.inflate(R.layout.listviewtextbtn, null);
         }
 
         //Handle TextView and display string from your list
-        TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
+        TextView listItemText = (TextView)view.findViewById(R.id.listViewText);
         listItemText.setText(list.get(position).toString());
 
         //Handle buttons and add onClickListeners
-        Button addBtn = (Button)view.findViewById(R.id.add_btn);
+        Button btn = (Button)view.findViewById(R.id.listViewBtn);
 
         TextButtonListener tempListener = listener.clone();
         tempListener.position = position;
         tempListener.adapter = this;
 
-        addBtn.setOnClickListener(tempListener);
-        addBtn.setText(buttonText);
+        btn.setOnClickListener(tempListener);
+        btn.setText(buttonText);
 
         return view;
     }
