@@ -46,8 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             Intent intent = new Intent(RegisterActivity.this, ProfileActivity.class);
-                                            intent.putExtra("user", user);
-                                            intent.putExtra("username", email);
                                             startActivity(intent);
                                         }
                                     });
@@ -57,8 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
-                        // ...
                     }
                 });
     }
