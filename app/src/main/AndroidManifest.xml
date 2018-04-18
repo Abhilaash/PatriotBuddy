@@ -18,10 +18,10 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ProfileDisplay" />
-        <activity android:name=".ProfileEdit" />
-        <activity android:name=".FriendsDisplay" />
-        <activity android:name=".AddFriends"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".FriendsDisplayActivity" />
+        <activity android:name=".AddFriendsActivity" />
     </application>
 
 </manifest>

@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View;
 
-public class ProfileDisplay extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     private Profile profile;
 
@@ -74,13 +74,13 @@ public class ProfileDisplay extends AppCompatActivity {
     }
 
     protected void edit(View view){
-        Intent intent = new Intent(this, ProfileEdit.class);
+        Intent intent = new Intent(this, EditProfileActivity.class);
         intent.putExtra("Profile", profile);
         startActivityForResult(intent, 1);
     }
 
     protected void showFriends(View view){
-        Intent intent = new Intent(this, FriendsDisplay.class);
+        Intent intent = new Intent(this, FriendsDisplayActivity.class);
         intent.putExtra("Profile", profile);
         startActivityForResult(intent, 1);
     }
