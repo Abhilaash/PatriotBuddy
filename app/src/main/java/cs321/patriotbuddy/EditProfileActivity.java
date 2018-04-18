@@ -89,6 +89,11 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         }
 
+        if(searches.size() == 0){
+            showCourseCreation(crn);
+            return;
+        }
+
         TextButtonListAdapter<Course> searchAdapter = new TextButtonListAdapter<Course>(this,
                 searches, "Add");
 
@@ -105,10 +110,38 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         }
 
-        AddItemTextButtonListener addListener = new AddItemTextButtonListener();
         searchAdapter.listener = new AddItemTextButtonListener();
-
         classList.setAdapter(searchAdapter);
+    }
+
+    private void showCourseCreation(final String crn){
+
+        ArrayList<String> message = new ArrayList<String>();
+        message.add("CRN not found, would you like to create and join class: " + crn);
+
+        TextButtonListAdapter<String> creationAdapter = new TextButtonListAdapter<String>(this,
+                message, "Create");
+
+        final EditProfileActivity ref = this;
+
+        class CreateCourseTextButtonListener extends TextButtonListAdapter.TextButtonListener {
+            @Override
+            public TextButtonListAdapter.TextButtonListener clone(){
+                return new CreateCourseTextButtonListener();
+            }
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ref, CourseCreationActivity.class);
+                intent.putExtra("Profile", profile);
+                intent.putExtra("CRN", crn);
+                startActivityForResult(intent, 1);
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        creationAdapter.listener = new CreateCourseTextButtonListener();
+        classList.setAdapter(creationAdapter);
     }
 
     private void setRegisteredCourseAdapter(){

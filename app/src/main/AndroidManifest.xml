@@ -22,6 +22,7 @@
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".FriendsDisplayActivity" />
         <activity android:name=".AddFriendsActivity" />
+        <activity android:name=".CourseCreationActivity"></activity>
     </application>
 
 </manifest>
