@@ -68,14 +68,22 @@ public class RegisterActivity extends AppCompatActivity {
                                             Intent intent = new Intent(RegisterActivity.this, ProfileDisplay.class);
                                             intent.putExtra("user", user);
                                             intent.putExtra("username", email);
-                                            startActivity(intent);
+                                            //Toast.makeText(this,"Please confirm the link in your email and login!",Toast.LENGTH_SHORT).show();
+                                            FirebaseAuth.getInstance().signOut();
+                                            Toast myT=Toast.makeText(RegisterActivity.this,"Please click the link in your email! " +
+                                                    "Welcome Patriot! :D",Toast.LENGTH_SHORT);
+                                            myT.setDuration(Toast.LENGTH_LONG);
+                                            myT.show();
+                                            finish();
                                         }
                                     });
                         } else {
                             // If registration in fails, display a message to the user.
                             Log.e("HELLO", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast t2=Toast.makeText(RegisterActivity.this, "A valid login already exists!",
+                                    Toast.LENGTH_SHORT);
+                            t2.setDuration(Toast.LENGTH_LONG);
+                            t2.show();
                         }
 
                         // ...

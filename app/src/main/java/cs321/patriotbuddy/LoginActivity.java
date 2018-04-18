@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     private FirebaseAuth mAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +135,23 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void checkIfEmailVerified()
+    {
+        Log.e("SUCCESS", "signInWithEmail:success");
+        if(user.isEmailVerified())
+        {
+            Toast.makeText(this,"Login was successful!Welcome patriot!",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else
+        {
+            Toast.makeText(this,"Please check the email that was sent to you!",Toast.LENGTH_SHORT).show();
+
+            finish();
+        }
+    }
+
+
     private boolean isEmailValid(String email) {
         return email.contains("@");
     }
@@ -190,22 +208,32 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("SUCCESS", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Intent intent = new Intent(LoginActivity.this, ProfileDisplay.class);
-                                intent.putExtra("user", user);
-                                intent.putExtra("username", mEmail);
-                                startActivity(intent);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("ERROR", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
 
+                                 user = mAuth.getCurrentUser();
+                                // Sign in success, update UI with the signed-in user's information
+                                //checkIfEmailVerified();
+                                if(user.isEmailVerified())
+                                {
+
+                                    Log.e("SUCCESS", "Login was successful!Welcome patriot!");
+                                    Intent intent = new Intent(LoginActivity.this, ProfileDisplay.class);
+                                    intent.putExtra("user", user);
+                                    intent.putExtra("username", mEmail);
+                                    startActivity(intent);
+                                }
+                            } else{
+                                    // If sign in fails, display a message to the user.
+
+                                    View focusView = null;
+                                    mEmailView.setError("Please check your email and confirm the link!");
+                                    focusView = mEmailView;
+                                    focusView.requestFocus();
+
+
+                                }
                             }
                             // ...
-                        }
+
             });
         showProgress(false);
     }
