@@ -1,6 +1,5 @@
 package cs321.patriotbuddy;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            Intent intent = new Intent(RegisterActivity.this, ProfileDisplay.class);
+                                            Intent intent = new Intent(RegisterActivity.this, ProfileActivity.class);
                                             intent.putExtra("user", user);
                                             intent.putExtra("username", email);
                                             startActivity(intent);

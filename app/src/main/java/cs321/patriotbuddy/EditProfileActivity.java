@@ -10,7 +10,7 @@ import android.widget.SearchView;
 
 import java.util.ArrayList;
 
-public class ProfileEdit extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity {
 
     private Profile profile;
     private EditText nameText;

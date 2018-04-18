@@ -9,7 +9,7 @@ import android.widget.ListView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class AddFriends extends AppCompatActivity {
+public class AddFriendsActivity extends AppCompatActivity {
 
     private Profile profile;
     private ListView browseList;
