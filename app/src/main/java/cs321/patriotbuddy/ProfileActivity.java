@@ -8,14 +8,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private Profile profile;
+    private FirebaseAuth mAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_display);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getInstance().getCurrentUser();
+
 
         if(profile == null) {
             profile = new Profile("Zac");

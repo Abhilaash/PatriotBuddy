@@ -52,9 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -206,8 +206,6 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d("HELLO", "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent intent = new Intent(mContext, ProfileActivity.class);
-                                intent.putExtra("username", mEmail);
-                                intent.putExtra("user", user);
                                 startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
