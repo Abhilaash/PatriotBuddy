@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-public class FriendsDisplay extends AppCompatActivity {
+public class FriendsDisplayActivity extends AppCompatActivity {
 
     private Profile profile;
     private ListView friendsList;
@@ -57,7 +57,7 @@ public class FriendsDisplay extends AppCompatActivity {
     }
 
     protected void addFriends(View view){
-        Intent intent = new Intent(this, AddFriends.class);
+        Intent intent = new Intent(this, AddFriendsActivity.class);
         intent.putExtra("Profile", profile);
         startActivityForResult(intent, 1);
     }

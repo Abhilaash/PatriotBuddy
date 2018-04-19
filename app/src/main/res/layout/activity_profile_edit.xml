@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileEdit">
+    tools:context=".EditProfileActivity">
 
     <Button
         android:id="@+id/saveButton"
@@ -50,17 +50,5 @@
         android:layout_marginTop="8dp"
         android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
-
-    <ListView
-        android:id="@+id/classList"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
 </android.support.constraint.ConstraintLayout>

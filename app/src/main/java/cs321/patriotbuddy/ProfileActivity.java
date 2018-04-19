@@ -8,14 +8,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View;
 
-public class ProfileDisplay extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class ProfileActivity extends AppCompatActivity {
 
     private Profile profile;
+    private FirebaseAuth mAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_display);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getInstance().getCurrentUser();
+
 
         if(profile == null) {
             profile = new Profile("Zac");
@@ -74,13 +82,13 @@ public class ProfileDisplay extends AppCompatActivity {
     }
 
     protected void edit(View view){
-        Intent intent = new Intent(this, ProfileEdit.class);
+        Intent intent = new Intent(this, EditProfileActivity.class);
         intent.putExtra("Profile", profile);
         startActivityForResult(intent, 1);
     }
 
     protected void showFriends(View view){
-        Intent intent = new Intent(this, FriendsDisplay.class);
+        Intent intent = new Intent(this, FriendsDisplayActivity.class);
         intent.putExtra("Profile", profile);
         startActivityForResult(intent, 1);
     }
