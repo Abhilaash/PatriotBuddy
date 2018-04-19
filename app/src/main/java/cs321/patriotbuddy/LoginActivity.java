@@ -3,9 +3,7 @@ package cs321.patriotbuddy;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,7 +26,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
 /**
  * A login screen that offers login via email/password.
  */
@@ -37,14 +34,13 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
-
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
     private FirebaseAuth mAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,9 +80,6 @@ public class LoginActivity extends AppCompatActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -99,14 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
+//        // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
@@ -114,6 +100,13 @@ public class LoginActivity extends AppCompatActivity {
         } else if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
+            cancel = true;
+        }
+
+        // Check for a valid password, if the user entered one.
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
             cancel = true;
         }
 
@@ -125,10 +118,26 @@ public class LoginActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password, this);
-            mAuthTask.execute((Void) null);
+            signIn(email, password);
         }
     }
+
+//    private void checkIfEmailVerified()
+//    {
+//        Log.e("SUCCESS", "signInWithEmail:success");
+//        if(user.isEmailVerified())
+//        {
+//            Toast.makeText(this,"Login was successful!Welcome patriot!",Toast.LENGTH_SHORT).show();
+//            finish();
+//        }
+//        else
+//        {
+//            Toast.makeText(this,"Please check the email that was sent to you!",Toast.LENGTH_SHORT).show();
+//
+//            finish();
+//        }
+//    }
+
 
     private boolean isEmailValid(String email) {
         return email.contains("@");
@@ -142,96 +151,69 @@ public class LoginActivity extends AppCompatActivity {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.animate().setDuration(shortAnimTime).alpha(
+                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
+    mAuth.signInWithEmailAndPassword(mEmail, mPassword)
+            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+    @Override
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-        private final Context mContext;
-
-        UserLoginTask(String email, String password, Context context) {
-            mEmail = email;
-            mPassword = password;
-            mContext = context;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
+        protected void signIn(final String mEmail, String mPassword) {
+            Log.e("Email", mEmail);
+            Log.e("Password", mPassword);
             mAuth.signInWithEmailAndPassword(mEmail, mPassword)
-                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+
+                                 user = mAuth.getCurrentUser();
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d("HELLO", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Intent intent = new Intent(mContext, ProfileActivity.class);
-                                startActivity(intent);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("HELLO", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                                mPasswordView.requestFocus();
+                                //checkIfEmailVerified();
+                                if(user != null && user.isEmailVerified())
+                                {
+
+                                    Log.e("SUCCESS", "Login was successful!Welcome patriot!");
+                                    Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                                    startActivity(intent);
+                                }
+                            } else{
+                                    // If sign in fails, display a message to the user.
+
+                                    View focusView;
+                                    mEmailView.setError("Please check your email and confirm the link!");
+                                    focusView = mEmailView;
+                                    focusView.requestFocus();
+
+
+                                }
                             }
-                            return;
-                        }
-                    });
+                            // ...
 
-            return false;
-        }
-        protected void onPostExecute() {
-            showProgress(false);
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-
-
+            });
+        showProgress(false);
     }
 }
 
