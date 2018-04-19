@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -28,7 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
         EditText editTextName = findViewById(R.id.name_register);
         final String name = editTextName.getText().toString();
         EditText editTextEmail = findViewById(R.id.email);
@@ -45,6 +45,9 @@ public class RegisterActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.e("HELLO", "createUserWithEmail:success");
                             final FirebaseUser user = mAuth.getCurrentUser();
+                            new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name)
+                                    .build();
                             user.sendEmailVerification()
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -54,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             Toast verifyEmailToast = Toast.makeText(RegisterActivity.this,"Please click the link in your email! " +
                                                     "Welcome Patriot! :D",Toast.LENGTH_LONG);
                                             verifyEmailToast.show();
+                                            onBackPressed();
                                         }
                                     });
                         } else {

@@ -205,8 +205,6 @@ public class LoginActivity extends AppCompatActivity {
                                     mEmailView.setError("Please check your email and confirm the link!");
                                     focusView = mEmailView;
                                     focusView.requestFocus();
-
-
                                 }
                             }
                             // ...
