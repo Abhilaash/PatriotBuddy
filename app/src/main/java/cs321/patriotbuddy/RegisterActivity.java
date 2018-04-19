@@ -1,9 +1,9 @@
 package cs321.patriotbuddy;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -15,9 +15,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +30,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void register(View view) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        EditText emailText = findViewById(R.id.email);
-        final String email = emailText.getText().toString();
-        EditText passwordText = findViewById(R.id.password);
-        String password = passwordText.getText().toString();
+        EditText editTextName = findViewById(R.id.name_register);
+        final String name = editTextName.getText().toString();
+        EditText editTextEmail = findViewById(R.id.email);
+        final String email = editTextEmail.getText().toString();
+        EditText editTextPassword = findViewById(R.id.password);
+        String password = editTextPassword.getText().toString();
         Log.e("Email: ", email);
         Log.e("Password: ", password);
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -45,24 +50,24 @@ public class RegisterActivity extends AppCompatActivity {
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            Intent intent = new Intent(RegisterActivity.this, ProfileActivity.class);
-                                            startActivity(intent);
+                                            //Toast.makeText(this,"Please confirm the link in your email and login!",Toast.LENGTH_SHORT).show();
+                                            FirebaseAuth.getInstance().signOut();
+                                            Toast verifyEmailToast = Toast.makeText(RegisterActivity.this,"Please click the link in your email! " +
+                                                    "Welcome Patriot! :D",Toast.LENGTH_LONG);
+                                            verifyEmailToast.show();
+                                            finish();
                                         }
                                     });
                         } else {
                             // If registration in fails, display a message to the user.
                             Log.e("HELLO", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast emailAlreadyUsed = Toast.makeText(RegisterActivity.this, "This email is already being used!",
+                                    Toast.LENGTH_LONG);
+                            emailAlreadyUsed.show();
                         }
+
+                        // ...
                     }
                 });
     }
-
-
-
-
-
-
-
 }
