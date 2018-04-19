@@ -32,17 +32,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "abhilaash.velamati@gmail.com:pass",
-            "rishab@:pass",
-            "zac@:pass",
-            "OJ@:pass",
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     // UI references.
@@ -59,23 +48,21 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
-            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                    if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                        attemptLogin();
-                        return true;
-                    }
-                    return false;
+        mPasswordView = findViewById(R.id.password);
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    attemptLogin();
+                    return true;
                 }
-            });
-        }
+                return false;
+            }
+        });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
-//            focusView = mPasswordView;
+            focusView = mPasswordView;
             cancel = true;
         }
 
@@ -135,21 +122,21 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void checkIfEmailVerified()
-    {
-        Log.e("SUCCESS", "signInWithEmail:success");
-        if(user.isEmailVerified())
-        {
-            Toast.makeText(this,"Login was successful!Welcome patriot!",Toast.LENGTH_SHORT).show();
-            finish();
-        }
-        else
-        {
-            Toast.makeText(this,"Please check the email that was sent to you!",Toast.LENGTH_SHORT).show();
-
-            finish();
-        }
-    }
+//    private void checkIfEmailVerified()
+//    {
+//        Log.e("SUCCESS", "signInWithEmail:success");
+//        if(user.isEmailVerified())
+//        {
+//            Toast.makeText(this,"Login was successful!Welcome patriot!",Toast.LENGTH_SHORT).show();
+//            finish();
+//        }
+//        else
+//        {
+//            Toast.makeText(this,"Please check the email that was sent to you!",Toast.LENGTH_SHORT).show();
+//
+//            finish();
+//        }
+//    }
 
 
     private boolean isEmailValid(String email) {
@@ -164,41 +151,34 @@ public class LoginActivity extends AppCompatActivity {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.animate().setDuration(shortAnimTime).alpha(
+                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
-                        mAuth.signInWithEmailAndPassword(mEmail, mPassword)
-                                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                @Override
+    mAuth.signInWithEmailAndPassword(mEmail, mPassword)
+            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+    @Override
      */
         protected void signIn(final String mEmail, String mPassword) {
             Log.e("Email", mEmail);
@@ -212,19 +192,17 @@ public class LoginActivity extends AppCompatActivity {
                                  user = mAuth.getCurrentUser();
                                 // Sign in success, update UI with the signed-in user's information
                                 //checkIfEmailVerified();
-                                if(user.isEmailVerified())
+                                if(user != null && user.isEmailVerified())
                                 {
 
                                     Log.e("SUCCESS", "Login was successful!Welcome patriot!");
-                                    Intent intent = new Intent(LoginActivity.this, ProfileDisplay.class);
-                                    intent.putExtra("user", user);
-                                    intent.putExtra("username", mEmail);
+                                    Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                                     startActivity(intent);
                                 }
                             } else{
                                     // If sign in fails, display a message to the user.
 
-                                    View focusView = null;
+                                    View focusView;
                                     mEmailView.setError("Please check your email and confirm the link!");
                                     focusView = mEmailView;
                                     focusView.requestFocus();
