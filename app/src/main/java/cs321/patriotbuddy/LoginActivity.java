@@ -121,23 +121,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-//    private void checkIfEmailVerified()
-//    {
-//        Log.e("SUCCESS", "signInWithEmail:success");
-//        if(user.isEmailVerified())
-//        {
-//            Toast.makeText(this,"Login was successful!Welcome patriot!",Toast.LENGTH_SHORT).show();
-//            finish();
-//        }
-//        else
-//        {
-//            Toast.makeText(this,"Please check the email that was sent to you!",Toast.LENGTH_SHORT).show();
-//
-//            finish();
-//        }
-//    }
-
-
     private boolean isEmailValid(String email) {
         return email.contains("@");
     }
@@ -175,42 +158,57 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
-    mAuth.signInWithEmailAndPassword(mEmail, mPassword)
-            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+     mAuth.signInWithEmailAndPassword(mEmail, mPassword)
+     .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
     @Override
      */
-        protected void signIn(final String mEmail, String mPassword) {
-            Log.e("Email", mEmail);
-            Log.e("Password", mPassword);
-            mAuth.signInWithEmailAndPassword(mEmail, mPassword)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
 
-                                 user = mAuth.getCurrentUser();
-                                // Sign in success, update UI with the signed-in user's information
-                                //checkIfEmailVerified();
-                                if(user != null && user.isEmailVerified())
-                                {
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     mAuth.signInWithEmailAndPassword(mEmail, mPassword)
+     .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+    @Override
+     */
+    protected void signIn(final String mEmail, String mPassword) {
+        Log.e("Email", mEmail);
+        Log.e("Password", mPassword);
+        mAuth.signInWithEmailAndPassword(mEmail, mPassword)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
 
-                                    Log.e("SUCCESS", "Login was successful!Welcome patriot!");
-                                    Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
-                                    startActivity(intent);
-                                }
-                            } else{
-                                    // If sign in fails, display a message to the user.
-
-                                    View focusView;
-                                    mEmailView.setError("Please check your email and confirm the link!");
-                                    focusView = mEmailView;
-                                    focusView.requestFocus();
-                                }
+                            user = mAuth.getCurrentUser();
+                            // Sign in success, update UI with the signed-in user's information
+                            //checkIfEmailVerified();
+                            if (user.isEmailVerified()) {
+                                Log.e("SUCCESS", "Login was successful!Welcome patriot!");
+                                Intent intent = new Intent(LoginActivity.this, ProfileDisplay.class);
+                                intent.putExtra("user", user);
+                                intent.putExtra("username", mEmail);
+                                startActivity(intent);
+                            } else if (!(user.isEmailVerified())) {
+                                // If sign in fails, display a message to the user.
+                                View focusView = null;
+                                mEmailView.setError("Please check your email and confirm the link!");
+                                focusView = mEmailView;
+                                focusView.requestFocus();
                             }
-                            // ...
 
-            });
+                        }
+                            else
+                            {
+                                View focusView = null;
+                                mEmailView.setError("Please check your email/password!");
+                                focusView = mEmailView;
+                                focusView.requestFocus();
+                            }
+
+                    }
+                    // ...
+
+                });
         showProgress(false);
     }
 }
-
