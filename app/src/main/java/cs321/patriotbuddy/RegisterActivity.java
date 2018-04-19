@@ -32,8 +32,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    private void attemptRegister()
+    {
+
+    }
+
     public void register(View view) {
-        EditText editTextName = findViewById(R.id.name);
+        EditText editTextName = findViewById(R.id.name_register);
         final String name = editTextName.getText().toString();
         EditText editTextEmail = findViewById(R.id.email);
         final String email = editTextEmail.getText().toString();
@@ -53,13 +58,13 @@ public class RegisterActivity extends AppCompatActivity {
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            Intent intent = new Intent(RegisterActivity.this, ProfileDisplay.class);
+                                            Intent intent = new Intent(RegisterActivity.this, ProfileActivity.class);
                                             intent.putExtra("user", user);
                                             intent.putExtra("username", email);
                                             //Toast.makeText(this,"Please confirm the link in your email and login!",Toast.LENGTH_SHORT).show();
                                             FirebaseAuth.getInstance().signOut();
                                             Toast myT=Toast.makeText(RegisterActivity.this,"Please click the link in your email! " +
-                                                    "Welcome Patriot! :D",Toast.LENGTH_SHORT);
+                                                    "Welcome Patriot!",Toast.LENGTH_SHORT);
                                             myT.setDuration(Toast.LENGTH_LONG);
                                             myT.show();
                                             finish();

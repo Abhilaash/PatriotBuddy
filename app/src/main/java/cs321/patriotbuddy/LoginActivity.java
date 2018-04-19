@@ -184,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
                             //checkIfEmailVerified();
                             if (user.isEmailVerified()) {
                                 Log.e("SUCCESS", "Login was successful!Welcome patriot!");
-                                Intent intent = new Intent(LoginActivity.this, ProfileDisplay.class);
+                                Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                                 intent.putExtra("user", user);
                                 intent.putExtra("username", mEmail);
                                 startActivity(intent);
