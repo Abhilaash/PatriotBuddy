@@ -1,6 +1,5 @@
 package cs321.patriotbuddy;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -55,7 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
                                             Toast verifyEmailToast = Toast.makeText(RegisterActivity.this,"Please click the link in your email! " +
                                                     "Welcome Patriot! :D",Toast.LENGTH_LONG);
                                             verifyEmailToast.show();
-                                            finish();
                                         }
                                     });
                         } else {
