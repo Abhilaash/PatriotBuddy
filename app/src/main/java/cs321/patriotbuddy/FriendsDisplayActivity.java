@@ -38,6 +38,8 @@ public class FriendsDisplayActivity extends AppCompatActivity {
         TextButtonListAdapter<Student> adapter = new TextButtonListAdapter<Student>(this,
                 profile.friends, "Chat");
 
+        final FriendsDisplayActivity ref = this;
+
         class ChatFriendTextButtonListener extends TextButtonListAdapter.TextButtonListener {
             @Override
             public TextButtonListAdapter.TextButtonListener clone(){
@@ -47,7 +49,10 @@ public class FriendsDisplayActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO: chat with friends
-                //profile.courses.remove(position);
+                Intent intent = new Intent(ref, ChatActivity.class);
+                intent.putExtra("Profile", profile);
+                intent.putExtra("Friend", (Student)adapter.list.get(position));
+                startActivityForResult(intent, 1);
                 //adapter.notifyDataSetChanged();
             }
         }
