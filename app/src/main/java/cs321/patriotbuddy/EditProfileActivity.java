@@ -63,6 +63,18 @@ public class EditProfileActivity extends AppCompatActivity {
         setRegisteredCourseAdapter();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                profile = (Profile)intent.getSerializableExtra("Profile");
+                searchView.onActionViewCollapsed();
+                setRegisteredCourseAdapter();
+            }
+        }
+    }
+
     private void searchParamEdit(String crn){
 
         //TODO: replace with database queries

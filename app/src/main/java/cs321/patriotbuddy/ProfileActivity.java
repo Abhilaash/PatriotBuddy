@@ -92,4 +92,11 @@ public class ProfileActivity extends AppCompatActivity {
         intent.putExtra("Profile", profile);
         startActivityForResult(intent, 1);
     }
+
+    protected void signOut(View view){
+
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 }
