@@ -84,27 +84,27 @@ public class RegisterActivity extends AppCompatActivity {
         String password = editTextPassword.getText().toString();
         Log.e("Email: ", email);
         Log.e("Password: ", password);
-        rtoFirebase=(Button) findViewById(R.id.register_button); //when register button clicked
-       mDatabase= FirebaseDatabase.getInstance().getReference().child("users");//stores the user to the database
-         HashMap<String,String> dataMap = new HashMap<String, String>();
+        rtoFirebase = (Button) findViewById(R.id.register_button); //when register button clicked
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("users");//stores the user to the database
+        HashMap<String,String> dataMap = new HashMap<String, String>();
 
-       dataMap.put("Name",name);
+        dataMap.put("Name",name);
         dataMap.put("Email",email);
         //mDatabase.push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-      mDatabase.child(name).setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete (@NonNull Task < Void > task) {
-               /*
-               Sends a message to the user to confirm that the data has been succesffully stored into the
-               firebase database
-                */
-                    if (task.isSuccessful()) {
-                        Toast.makeText(RegisterActivity.this, "Success!!..", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "something went wrong..", Toast.LENGTH_LONG).show();
-                    }
+        mDatabase.child(name).setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete (@NonNull Task < Void > task) {
+           /*
+           Sends a message to the user to confirm that the data has been succesffully stored into the
+           firebase database
+            */
+                if (task.isSuccessful()) {
+                    Toast.makeText(RegisterActivity.this, "Success!!..", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "something went wrong..", Toast.LENGTH_LONG).show();
                 }
-        });
+            }
+            });
      //});
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
