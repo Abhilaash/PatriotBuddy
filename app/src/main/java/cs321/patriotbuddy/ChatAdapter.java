@@ -20,7 +20,7 @@ import cs321.patriotbuddy.R;
 
 public class ChatAdapter extends BaseAdapter implements ListAdapter {
 
-    public ArrayList<ChatMessage> list = new ArrayList<ChatMessage>();
+    private ArrayList<ChatMessage> list;
     private Context context;
 
     public ChatAdapter(Context context, ArrayList<ChatMessage> chats) {
@@ -61,13 +61,13 @@ public class ChatAdapter extends BaseAdapter implements ListAdapter {
         TextView message = view.findViewById(R.id.message_text);
         TextView time = view.findViewById(R.id.message_time);
 
-        user.setText(list.get(position).user);
-        message.setText(list.get(position).message);
-        Date d = new Date(list.get(position).time);
-        new SimpleDateFormat("dd-MM-yyyy (HH:mm:ss)").format(d);
+////        user.setText(list.get(position).user);
+////        message.setText(list.get(position).message);
+////        Date d = new Date(list.get(position).time);
+//        new SimpleDateFormat("dd-MM-yyyy (HH:mm:ss)").format(d);
         //DateFormat.format("dd-MM-yyyy (HH:mm:ss)", list.get(position).time);
 
-        time.setText(new SimpleDateFormat("dd-MM-yyyy (HH:mm:ss)").format(d));
+//        time.setText(new SimpleDateFormat("dd-MM-yyyy (HH:mm:ss)").format(d));
 
         return view;
     }
