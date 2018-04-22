@@ -10,6 +10,7 @@ public class Group implements Messagable {
 
     public void sendMessage(String message){
 
+
     }
 
     public void receiveMessage(String message){

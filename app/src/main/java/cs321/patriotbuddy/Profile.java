@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Profile extends Student implements Serializable {
 
     ArrayList<Course> myCourse = new ArrayList<Course>();
+    ArrayList<Course> courses = myCourse;
 
     String pname="";
 
@@ -15,42 +16,39 @@ public class Profile extends Student implements Serializable {
 
     }
     public void addCourse(Course course){
-        for(Course x:myCourse) {
-            if(!x.equals(course))
-            {
-                myCourse.add(course);
-            }
-            else
-            {
-                //Check to see if the print statement is supposed to be displayed like this
-                System.out.println("The course already exists in the schedule");
-            }
-        }
+
+        myCourse.add(course);
 
     }
-    public void removeCourse(Course course){
-        for(Course x:myCourse)
-        {
-            if(x.equals(course))
-            {
-                myCourse.remove(x);
 
-            }
-            else
-            {
-                //check this to make sure how it needs to be displayed
-                System.out.println("The course you are trying to remove does not exist");
+    public void add(Course course) {
+        myCourse.add((course));
+    }
+    public void remove(int index){
+
+//        for(Course x : myCourse) {
+//            if (x.equals(course)) {
+//                myCourse.remove(course);
+//            }
+            myCourse.remove(index);
+        }
+    public void remove(Course course) {
+
+        for (Course x : myCourse) {
+            if (x.equals(course)) {
+                myCourse.remove(course);
             }
 
         }
-
     }
+
+
     public ArrayList<Course> getCourses(){
         return myCourse;
     }
 
     public String getPname() {
-        return this.pname;
+        return this.name;
     }
 
     public void changeName(String newName){
