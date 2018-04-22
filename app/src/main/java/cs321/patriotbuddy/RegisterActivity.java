@@ -1,6 +1,5 @@
 package cs321.patriotbuddy;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -43,13 +42,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String email) {
-        return email.contains("@gmu.edu");
+        return email.toLowerCase().contains("@gmu.edu") || email.toLowerCase().contains("@masonlive.gmu.edu");
     }
 
     private boolean attemptRegister(String email,String password) {
 
         // Store values at the time of the login attempt.
-        boolean cancel = false;
         View focusView = null;
 
 //        // Check for a valid email address.
@@ -66,9 +64,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password) || password.length() < 4) {
             focusView = mEmailView;
-            mEmailView.setError("password  is not valid");
+            mEmailView.setError("password is not valid");
             focusView.requestFocus();
             return false;
         }
