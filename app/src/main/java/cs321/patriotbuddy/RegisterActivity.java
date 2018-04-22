@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,17 +27,12 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private Button rtoFirebase;
-    private DatabaseReference mDatabase;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
-
     }
 
     private boolean isEmailValid(String email) {
@@ -48,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean attemptRegister(String email,String password) {
 
         // Store values at the time of the login attempt.
-        View focusView = null;
+        View focusView;
 
 //        // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -66,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password) || password.length() < 4) {
             focusView = mEmailView;
-            mEmailView.setError("password is not valid");
+            mPasswordView.setError("password is not valid");
             focusView.requestFocus();
             return false;
         }
@@ -77,16 +71,15 @@ public class RegisterActivity extends AppCompatActivity {
     public void register(View view) {
         EditText editTextName = findViewById(R.id.name_register);
         final String name = editTextName.getText().toString();
-        EditText editTextEmail = findViewById(R.id.email);
-        final String email = editTextEmail.getText().toString();
-        EditText editTextPassword = findViewById(R.id.password);
-        String password = editTextPassword.getText().toString();
+        mEmailView = findViewById(R.id.email);
+        final String email = mEmailView.getText().toString();
+        mPasswordView = findViewById(R.id.password);
+        String password = mPasswordView.getText().toString();
 //        Log.e("Email: ", email);
 //        Log.e("Password: ", password);
         if(attemptRegister(email, password)) {
-            rtoFirebase = (Button) findViewById(R.id.register_button); //when register button clicked
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("users");//stores the user to the database
-            HashMap<String, String> dataMap = new HashMap<String, String>();
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+            HashMap<String, String> dataMap = new HashMap<>();
             dataMap.put("Name", name);
             dataMap.put("Email", email);
             //mDatabase.push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -109,42 +102,43 @@ public class RegisterActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
 
-                                Log.e("HELLO", "createUserWithEmail:success");
-                                final FirebaseUser user = mAuth.getCurrentUser();
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(name)
-                                        .build();
-                                user.updateProfile(profileUpdates)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Log.d("Name set", "User profile updated.");
-                                                }
-                                            }
-                                        });
-                                user.sendEmailVerification()
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                //Toast.makeText(this,"Please confirm the link in your email and login!",Toast.LENGTH_SHORT).show();
-                                                FirebaseAuth.getInstance().signOut();
-                                                Toast verifyEmailToast = Toast.makeText(RegisterActivity.this, "Please click the link in your email! " +
-                                                        "Welcome Patriot!", Toast.LENGTH_LONG);
-                                                verifyEmailToast.show();
-                                                finish();
-                                            }
-                                        });
-                            } else if (!(task.isSuccessful())) {
-                                // If registration in fails, display a message to the user.
-                                Log.e("HELLO", "createUserWithEmail:failure", task.getException());
-                                Toast emailAlreadyUsed = Toast.makeText(RegisterActivity.this, "This email is already being used",
-                                        Toast.LENGTH_LONG);
-                                emailAlreadyUsed.show();
-                            }
+                    Log.e("HELLO", "createUserWithEmail:success");
+                    final FirebaseUser user = mAuth.getCurrentUser();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(name)
+                            .build();
+                    assert user != null;
+                    user.updateProfile(profileUpdates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("Name set", "User profile updated.");
+                                    }
+                                }
+                            });
+                    user.sendEmailVerification()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    //Toast.makeText(this,"Please confirm the link in your email and login!",Toast.LENGTH_SHORT).show();
+                                    FirebaseAuth.getInstance().signOut();
+                                    Toast verifyEmailToast = Toast.makeText(RegisterActivity.this, "Please click the link in your email! " +
+                                            "Welcome Patriot!", Toast.LENGTH_LONG);
+                                    verifyEmailToast.show();
+                                    finish();
+                                }
+                            });
+                } else if (!(task.isSuccessful())) {
+                    // If registration in fails, display a message to the user.
+                    Log.e("HELLO", "createUserWithEmail:failure", task.getException());
+                    Toast emailAlreadyUsed = Toast.makeText(RegisterActivity.this, "This email is already being used",
+                            Toast.LENGTH_LONG);
+                    emailAlreadyUsed.show();
+                }
                         }
             });
         }
