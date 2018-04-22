@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Profile extends Student implements Serializable {
 
     ArrayList<Course> myCourse = new ArrayList<Course>();
+
     String pname="";
 
     public Profile(String name){
