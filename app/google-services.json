@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1076615661590-k7b8dgidvpbbuh73cr6r42pjsl2t0ub0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cs321.patriotbuddy",
+            "certificate_hash": "f617291f99b0b3e59af7e5c2a185f3a64afb99b7"
+          }
+        },
+        {
           "client_id": "1076615661590-sqm6ep2re1nimfnq0np3ubkoiv0ftill.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076615661590-sqm6ep2re1nimfnq0np3ubkoiv0ftill.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
