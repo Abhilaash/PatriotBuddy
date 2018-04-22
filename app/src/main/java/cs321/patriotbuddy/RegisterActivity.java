@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -115,29 +116,36 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 Log.e("HELLO", "createUserWithEmail:success");
                                 final FirebaseUser user = mAuth.getCurrentUser();
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(name)
+                                        .build();
+                                user.updateProfile(profileUpdates)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("Name set", "User profile updated.");
+                                                }
+                                            }
+                                        });
                                 user.sendEmailVerification()
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                Intent intent = new Intent(RegisterActivity.this, ProfileActivity.class);
-                                                intent.putExtra("user", user);
-                                                intent.putExtra("username", email);
                                                 //Toast.makeText(this,"Please confirm the link in your email and login!",Toast.LENGTH_SHORT).show();
                                                 FirebaseAuth.getInstance().signOut();
-                                                Toast myT = Toast.makeText(RegisterActivity.this, "Please click the link in your email! " +
-                                                        "Welcome Patriot!", Toast.LENGTH_SHORT);
-                                                myT.setDuration(Toast.LENGTH_LONG);
-                                                myT.show();
+                                                Toast verifyEmailToast = Toast.makeText(RegisterActivity.this, "Please click the link in your email! " +
+                                                        "Welcome Patriot!", Toast.LENGTH_LONG);
+                                                verifyEmailToast.show();
                                                 finish();
                                             }
                                         });
                             } else if (!(task.isSuccessful())) {
                                 // If registration in fails, display a message to the user.
                                 Log.e("HELLO", "createUserWithEmail:failure", task.getException());
-                                Toast t2 = Toast.makeText(RegisterActivity.this, "Something is not right please try again!",
-                                        Toast.LENGTH_SHORT);
-                                t2.setDuration(Toast.LENGTH_LONG);
-                                t2.show();
+                                Toast emailAlreadyUsed = Toast.makeText(RegisterActivity.this, "This email is already being used",
+                                        Toast.LENGTH_LONG);
+                                emailAlreadyUsed.show();
                             }
                         }
             });
