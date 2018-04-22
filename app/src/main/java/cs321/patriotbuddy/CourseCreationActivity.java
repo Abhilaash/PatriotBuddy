@@ -18,7 +18,7 @@ public class CourseCreationActivity extends AppCompatActivity {
     private EditText code;
     private EditText professor;
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("Courses");
+    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +41,18 @@ public class CourseCreationActivity extends AppCompatActivity {
 
         if(crn.getText().toString().isEmpty() || code.getText().toString().isEmpty() ||
                 professor.getText().toString().isEmpty()){
+
             return;
         }
 
         Course c = new Course(crn.getText().toString(), code.getText().toString(),
                 professor.getText().toString());
         profile.courses.add(c);
-        String cname=c.crn;
-        mDatabase.child(cname).setValue(c);
+        //String cname=c.crn;
+      //  mDatabase.child(cname).setValue(c);
+
+        mDatabase.child(profile.getPname()).setValue(c);
+
 
         Intent intent = new Intent();
         intent.putExtra("Profile", profile);
