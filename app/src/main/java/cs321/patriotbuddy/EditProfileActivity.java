@@ -182,10 +182,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
         profile.name = nameText.getText().toString();
 
-        Course[] c = profile.getCourses();
-        for(int i = 0; i < c.length; i++){
-            if(!adapter.contains(c[i])){
-                profile.courses.remove(c[i]);
+        ArrayList<Course>  c = profile.getCourses();
+        for(int i = 0; i < c.size(); i++){
+            if(!adapter.contains(c.get(i))){
+                profile.courses.remove(c.get(i));
             }
         }
 

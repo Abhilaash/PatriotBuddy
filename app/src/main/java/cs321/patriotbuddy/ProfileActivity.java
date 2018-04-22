@@ -11,6 +11,8 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private Profile profile;
@@ -73,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView nameText = findViewById(R.id.nameText);
         nameText.setText(profile.name);
 
-        Course[] c = profile.getCourses();
+        ArrayList<Course> c = profile.getCourses();
         ArrayAdapter<Course> adapter = new ArrayAdapter<Course>(this,
                 R.layout.listview, c);
 

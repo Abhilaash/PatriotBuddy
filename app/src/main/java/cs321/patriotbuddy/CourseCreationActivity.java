@@ -6,12 +6,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class CourseCreationActivity extends AppCompatActivity {
 
     private Profile profile;
     private EditText crn;
     private EditText code;
     private EditText professor;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("Courses");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +30,8 @@ public class CourseCreationActivity extends AppCompatActivity {
         crn = findViewById(R.id.createCourseCRN);
         code = findViewById(R.id.createCourseCode);
         professor = findViewById(R.id.createCourseProf);
+
+
 
         String crnString = (String)getIntent().getSerializableExtra("CRN");
         crn.setText(crnString);
@@ -38,6 +47,8 @@ public class CourseCreationActivity extends AppCompatActivity {
         Course c = new Course(crn.getText().toString(), code.getText().toString(),
                 professor.getText().toString());
         profile.courses.add(c);
+        String cname=c.crn;
+        mDatabase.child(cname).setValue(c);
 
         Intent intent = new Intent();
         intent.putExtra("Profile", profile);
