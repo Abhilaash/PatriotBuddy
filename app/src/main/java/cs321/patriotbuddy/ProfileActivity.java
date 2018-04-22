@@ -3,6 +3,7 @@ package cs321.patriotbuddy;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,7 +29,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         if(profile == null) {
-            profile = new Profile("Zac");
+            Log.e("HELLO", user.getDisplayName());
+            profile = new Profile(user.getDisplayName());
             Course c1 = new Course("123", "CS 321", "Dr. S");
             Course c2 = new Course("678", "CS 456", "Dr. K");
             Course c3 = new Course("495", "CS 325", "Dr. G");
