@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,12 +23,13 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_display);
+        setContentView(R.layout.activity_profile);
         mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
 
         if(profile == null) {
+            assert user != null;
             Log.e("HELLO", user.getDisplayName());
             profile = new Profile(user.getDisplayName());
             Course c1 = new Course("123", "CS 321", "Dr. S");
@@ -78,8 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
         nameText.setText(profile.name);
 
         ArrayList<Course> c = profile.getCourses();
-        ArrayAdapter<Course> adapter = new ArrayAdapter<Course>(this,
-                R.layout.listview, c);
+        ArrayAdapter<Course> adapter = new ArrayAdapter<>(this, R.layout.listview, c);
 
         ListView classList = findViewById(R.id.classList);
         classList.setAdapter(adapter);
@@ -98,9 +98,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     protected void signOut(View view){
-
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
+        mAuth.signOut();
         finish();
     }
 }

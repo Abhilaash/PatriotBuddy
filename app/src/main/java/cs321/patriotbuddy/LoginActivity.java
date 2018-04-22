@@ -178,7 +178,6 @@ public class LoginActivity extends AppCompatActivity {
                         Log.e("SUCCESS", "Login was successful!Welcome patriot!");
                         Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                         intent.putExtra("user", user);
-                        intent.putExtra("username", mEmail);
                         startActivity(intent);
                     } else if (!(user.isEmailVerified())) {
                         // If sign in fails, display a message to the user.
