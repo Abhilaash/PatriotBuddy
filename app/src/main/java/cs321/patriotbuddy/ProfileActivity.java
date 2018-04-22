@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,7 +28,6 @@ public class ProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-
         if(profile == null) {
             assert user != null;
             Log.e("HELLO", user.getDisplayName());
@@ -40,14 +40,14 @@ public class ProfileActivity extends AppCompatActivity {
             Course c6 = new Course("495", "CS 325", "Dr. G");
             Course c7 = new Course("495", "CS 325", "Dr. G");
             Course c8 = new Course("495", "CS 325", "Dr. G");
-            profile.courses.add(c1);
-            profile.courses.add(c2);
-            profile.courses.add(c3);
-            profile.courses.add(c4);
-            profile.courses.add(c5);
-            profile.courses.add(c6);
-            profile.courses.add(c7);
-            profile.courses.add(c8);
+            profile.addCourse(c1);
+            profile.add(c2);
+            profile.add(c3);
+            profile.add(c4);
+            profile.add(c5);
+            profile.add(c6);
+            profile.add(c7);
+            profile.add(c8);
             profile.friends.add(new Student("Jack"));
             profile.friends.add(new Student("John"));
             profile.friends.add(new Student("Jill"));
@@ -59,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
             profile.friends.add(new Student("Jeremiah"));
         }
 
+
         setUpDisplay();
     }
 
@@ -67,7 +68,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                profile = (Profile)intent.getSerializableExtra("Profile");
+
+               // profile = (Profile)intent.getSerializableExtra("Profile");
+                //TextView editTextName = findViewById(R.id.nameText);
+                //editTextName.setText(profile.name);
+                //final String name = editTextName.getText().toString().trim();
+                //profile= new Profile(name);
                 setUpDisplay();
             }
         }
@@ -75,10 +81,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setUpDisplay() {
 
+
+
         TextView nameText = findViewById(R.id.nameText);
         nameText.setText(profile.name);
 
-        ArrayList<Course> c = profile.getCourses();
+        ArrayList<Course> c = profile.myCourse;
         ArrayAdapter<Course> adapter = new ArrayAdapter<>(this, R.layout.listview, c);
 
         ListView classList = findViewById(R.id.classList);

@@ -117,7 +117,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                profile.courses.add((Course) adapter.list.get(position));
+                profile.add((Course) adapter.list.get(position));
                 adapter.notifyDataSetChanged();
             }
         }
@@ -159,7 +159,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void setRegisteredCourseAdapter(){
 
         adapter = new TextButtonListAdapter<Course>(this,
-                profile.courses, "Delete");
+                profile.myCourse, "Delete");
 
         class DeleteItemTextButtonListener extends TextButtonListAdapter.TextButtonListener {
             @Override
@@ -169,7 +169,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                profile.courses.remove(position);
+                profile.remove(position);
                 adapter.notifyDataSetChanged();
             }
         }
@@ -180,14 +180,27 @@ public class EditProfileActivity extends AppCompatActivity {
 
     protected void save(View view){
 
+
         profile.name = nameText.getText().toString();
 
-        ArrayList<Course>  c = profile.getCourses();
-        for(int i = 0; i < c.size(); i++){
-            if(!adapter.contains(c.get(i))){
-                profile.courses.remove(c.get(i));
+       ArrayList<Course>  c = profile.myCourse;
+//        for(int i = 0; i < c.size(); i++){
+//            if(!adapter.contains(c.get(i))){
+//                profile.remove(i);
+//            }
+        //}
+
+        for (Course x: c) {
+            if(!adapter.contains(x)) {
+                profile.remove(x);
             }
         }
+
+
+     //   profile.myCourse =
+
+
+
 
         Intent intent = new Intent();
         intent.putExtra("Profile", profile);
