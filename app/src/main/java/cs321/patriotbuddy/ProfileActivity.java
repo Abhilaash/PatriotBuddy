@@ -81,8 +81,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setUpDisplay() {
 
-
-
         TextView nameText = findViewById(R.id.nameText);
         nameText.setText(profile.name);
 

@@ -48,8 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
+        mEmailView.setText("");
 
         mPasswordView = findViewById(R.id.password);
+        mPasswordView.setText("");
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -71,6 +73,13 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mEmailView.setText("");
+        mPasswordView.setText("");
     }
 
     /**

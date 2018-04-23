@@ -1,12 +1,20 @@
 package cs321.patriotbuddy;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.ArrayList;
 
@@ -17,7 +25,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private SearchView searchView;
     private ListView classList;
     private TextButtonListAdapter<Course> adapter;
-
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +35,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
         profile = (Profile)getIntent().getSerializableExtra("Profile");
 
+        mAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         nameText = findViewById(R.id.editText);
         nameText.setText(profile.name);
-
         searchView = findViewById(R.id.searchView);
         searchView.setOnSearchClickListener(new View.OnClickListener(){
             @Override
@@ -179,9 +191,20 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     protected void save(View view){
-
-
         profile.name = nameText.getText().toString();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user!=null){
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(nameText.getText().toString()).build();
+                    user.updateProfile(profileUpdates);
+                }
+            }
+        };
+
 
        ArrayList<Course>  c = profile.myCourse;
 //        for(int i = 0; i < c.size(); i++){
