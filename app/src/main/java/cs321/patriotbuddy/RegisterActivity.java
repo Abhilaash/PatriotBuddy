@@ -39,28 +39,30 @@ public class RegisterActivity extends AppCompatActivity {
         return email.toLowerCase().contains("@gmu.edu") || email.toLowerCase().contains("@masonlive.gmu.edu");
     }
 
-    private boolean attemptRegister(String email,String password) {
+    private boolean attemptRegister(String email,String password, String confirmPassword) {
 
         // Store values at the time of the login attempt.
         View focusView;
 
 //        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+        if (!isEmailValid(email) || TextUtils.isEmpty(email)) {
             focusView = mEmailView;
-            mEmailView.setError("Email is required!");
-            focusView.requestFocus();
-            return false;
-        } else if (!isEmailValid(email)) {
-            focusView = mEmailView;
-            mEmailView.setError("Please enter a valid email!");
+            mEmailView.setError("Email is not valid");
             focusView.requestFocus();
             return false;
         }
 
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password) || password.length() < 4) {
-            focusView = mEmailView;
-            mPasswordView.setError("password is not valid");
+            focusView = mPasswordView;
+            mPasswordView.setError("Password is not valid");
+            focusView.requestFocus();
+            return false;
+        }
+
+        if(!confirmPassword.equals(password)) {
+            focusView = mPasswordView;
+            mPasswordView.setError("Passwords are not the same");
             focusView.requestFocus();
             return false;
         }
@@ -75,9 +77,10 @@ public class RegisterActivity extends AppCompatActivity {
         final String email = mEmailView.getText().toString();
         mPasswordView = findViewById(R.id.password);
         String password = mPasswordView.getText().toString();
+        String confirmPassword = ((EditText) findViewById(R.id.confirmPassword)).getText().toString();
 //        Log.e("Email: ", email);
 //        Log.e("Password: ", password);
-        if(attemptRegister(email, password)) {
+        if(attemptRegister(email, password, confirmPassword)) {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
             HashMap<String, String> dataMap = new HashMap<>();
             dataMap.put("Name", name);
@@ -132,14 +135,14 @@ public class RegisterActivity extends AppCompatActivity {
                                     finish();
                                 }
                             });
-                } else if (!(task.isSuccessful())) {
-                    // If registration in fails, display a message to the user.
-                    Log.e("HELLO", "createUserWithEmail:failure", task.getException());
-                    Toast emailAlreadyUsed = Toast.makeText(RegisterActivity.this, "This email is already being used",
-                            Toast.LENGTH_LONG);
-                    emailAlreadyUsed.show();
+                    } else if (!(task.isSuccessful())) {
+                        // If registration in fails, display a message to the user.
+                        Log.e("HELLO", "createUserWithEmail:failure", task.getException());
+                        Toast emailAlreadyUsed = Toast.makeText(RegisterActivity.this, "This email is already being used",
+                                Toast.LENGTH_LONG);
+                        emailAlreadyUsed.show();
+                    }
                 }
-                        }
             });
         }
     }
