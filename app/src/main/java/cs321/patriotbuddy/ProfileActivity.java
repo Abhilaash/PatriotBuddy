@@ -12,6 +12,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -40,7 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
             Course c6 = new Course("495", "CS 325", "Dr. G");
             Course c7 = new Course("495", "CS 325", "Dr. G");
             Course c8 = new Course("495", "CS 325", "Dr. G");
-            profile.addCourse(c1);
+   /*         profile.addCourse(c1);
             profile.add(c2);
             profile.add(c3);
             profile.add(c4);
@@ -48,7 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
             profile.add(c6);
             profile.add(c7);
             profile.add(c8);
-            profile.friends.add(new Student("Jack"));
+    */        profile.friends.add(new Student("Jack"));
             profile.friends.add(new Student("John"));
             profile.friends.add(new Student("Jill"));
             profile.friends.add(new Student("Joe"));
@@ -84,10 +89,38 @@ public class ProfileActivity extends AppCompatActivity {
         TextView nameText = findViewById(R.id.nameText);
         nameText.setText(profile.name);
 
+        final ListView classList = findViewById(R.id.classList);
+        final ProfileActivity ref = this;
+
+        DatabaseReference mDB = FirebaseDatabase.getInstance().getReference().child("users").child(profile.name);
+        mDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<Course> courses = new ArrayList<Course>();
+                for(DataSnapshot x: dataSnapshot.getChildren()){
+                    Course c = x.getValue(Course.class);
+                    //profile.myCourse.add(c);
+                    courses.add(c);
+                }
+
+                profile.myCourse = courses;
+                ArrayList<Course> c = profile.myCourse;
+                ArrayAdapter<Course> adapter = new ArrayAdapter<Course>(ref, R.layout.listview, c);
+
+                classList.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         ArrayList<Course> c = profile.myCourse;
         ArrayAdapter<Course> adapter = new ArrayAdapter<>(this, R.layout.listview, c);
 
-        ListView classList = findViewById(R.id.classList);
         classList.setAdapter(adapter);
     }
 

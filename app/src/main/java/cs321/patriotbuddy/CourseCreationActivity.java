@@ -49,8 +49,8 @@ public class CourseCreationActivity extends AppCompatActivity {
         Course c = new Course(crn.getText().toString(), code.getText().toString(),
                 professor.getText().toString());
         profile.addCourse(c);
-        mDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(profile.name);
-        mDatabase.setValue(profile.myCourse);
+    //    mDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(profile.name);
+    //    mDatabase.setValue(profile.myCourse);
         Intent intent = new Intent();
         intent.putExtra("Profile", profile);
         setResult(RESULT_OK, intent);

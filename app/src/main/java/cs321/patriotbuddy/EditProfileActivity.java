@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -205,6 +207,8 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         };
 
+        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(profile.name);
+        mDatabase.setValue(profile.myCourse);
 
        ArrayList<Course>  c = profile.myCourse;
 //        for(int i = 0; i < c.size(); i++){

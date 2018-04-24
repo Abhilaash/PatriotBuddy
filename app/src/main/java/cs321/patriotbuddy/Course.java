@@ -12,6 +12,8 @@ public class Course implements Serializable {
     public String courseCode = "";
     public String professor = "";
 
+    public Course(){   }
+
     public Course(String crn, String courseCode, String professor){
         this.crn = crn;
         this.courseCode = courseCode;
