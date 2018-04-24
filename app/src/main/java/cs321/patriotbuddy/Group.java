@@ -6,37 +6,20 @@ package cs321.patriotbuddy;
 
 public class Group implements Messagable {
 
-    String gName="";
+    public String name = "";
 
+    public void sendMessage(String message){
 
-
-
-    public String getName()
-    {
-        return this.gName;
 
     }
 
-    public void setName(String nm)
-    {
-        this.gName=nm;
-    }
+    public void receiveMessage(String message){
 
+    }
 
     public boolean isPrivate()
     {
 
         return false;
-    }
-
-
-    @Override
-    public void sendMessage(String message) {
-
-    }
-
-    @Override
-    public void receiveMessage(String message) {
-
     }
 }

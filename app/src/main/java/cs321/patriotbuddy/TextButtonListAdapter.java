@@ -9,16 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class DeleteItemListAdapter<T> extends BaseAdapter implements ListAdapter {
+public class TextButtonListAdapter<T> extends BaseAdapter implements ListAdapter {
 
-    private ArrayList<T> list = new ArrayList<T>();
+    public ArrayList<T> list = new ArrayList<T>();
     private Context context;
+    private String buttonText = "";
+    public TextButtonListener listener;
 
-    public DeleteItemListAdapter(Context context, T[] array) {
-        this.list = new ArrayList<T>(Arrays.asList(array));
+    public TextButtonListAdapter(Context context, ArrayList<T> array, String buttonText) {
+        this.list = array;
         this.context = context;
+        this.buttonText = buttonText;
     }
 
     @Override
@@ -45,25 +47,29 @@ public class DeleteItemListAdapter<T> extends BaseAdapter implements ListAdapter
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.listviewdelete, null);
+            view = inflater.inflate(R.layout.listviewtextbtn, null);
         }
 
         //Handle TextView and display string from your list
-        TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
+        TextView listItemText = (TextView)view.findViewById(R.id.listViewText);
         listItemText.setText(list.get(position).toString());
 
         //Handle buttons and add onClickListeners
-        Button deleteBtn = (Button)view.findViewById(R.id.delete_btn);
+        Button btn = (Button)view.findViewById(R.id.listViewBtn);
 
-        deleteBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //do something
-                list.remove(position); //or some other task
-                notifyDataSetChanged();
-            }
-        });
+        TextButtonListener tempListener = listener.clone();
+        tempListener.position = position;
+        tempListener.adapter = this;
+
+        btn.setOnClickListener(tempListener);
+        btn.setText(buttonText);
 
         return view;
+    }
+
+    public static abstract class TextButtonListener implements View.OnClickListener {
+        public int position;
+        public TextButtonListAdapter adapter;
+        public abstract TextButtonListener clone();
     }
 }

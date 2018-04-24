@@ -93,8 +93,14 @@ public class RegisterActivity extends AppCompatActivity {
            Sends a message to the user to confirm that the data has been succesffully stored into the
            firebase database
             */
+                    if (task.isSuccessful()) {
+                        Toast.makeText(RegisterActivity.this, "Success!!..", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "something went wrong..", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
+            //});
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -130,9 +136,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
                     } else if (!(task.isSuccessful())) {
-                        View focusView = mEmailView;
-                        mEmailView.setError("Email is already being used");
-                        focusView.requestFocus();
+                        // If registration in fails, display a message to the user.
+                        Log.e("HELLO", "createUserWithEmail:failure", task.getException());
+                        Toast emailAlreadyUsed = Toast.makeText(RegisterActivity.this, "This email is already being used",
+                                Toast.LENGTH_LONG);
+                        emailAlreadyUsed.show();
                     }
                 }
             });
