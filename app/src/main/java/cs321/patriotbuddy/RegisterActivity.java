@@ -83,8 +83,8 @@ public class RegisterActivity extends AppCompatActivity {
         if(attemptRegister(email, password, confirmPassword)) {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
             HashMap<String, String> dataMap = new HashMap<>();
-            dataMap.put("Name", name);
-            dataMap.put("Email", email);
+           // dataMap.put("Name", name);
+            //dataMap.put("Email", email);
             //mDatabase.push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             mDatabase.child(name).setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -124,6 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
                     user.sendEmailVerification()
+
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -132,6 +133,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Toast verifyEmailToast = Toast.makeText(RegisterActivity.this, "Please click the link in your email! " +
                                             "Welcome Patriot!", Toast.LENGTH_LONG);
                                     verifyEmailToast.show();
+
                                     finish();
                                 }
                             });

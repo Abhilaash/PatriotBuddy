@@ -92,6 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
         final ListView classList = findViewById(R.id.classList);
         final ProfileActivity ref = this;
 
+        //DatabaseReference
         DatabaseReference mDB = FirebaseDatabase.getInstance().getReference().child("users").child(profile.name);
         mDB.addValueEventListener(new ValueEventListener() {
             @Override
@@ -99,9 +100,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                 ArrayList<Course> courses = new ArrayList<Course>();
                 for(DataSnapshot x: dataSnapshot.getChildren()){
-                 Course c = x.getValue(Course.class);
-                     profile.myCourse.add(c);
-                   courses.add(c);
+                    if(x.getValue()!=null) {
+                        Course c = x.getValue(Course.class);
+                        profile.myCourse.add(c);
+                        courses.add(c);
+                    }
                 }
 
                 profile.myCourse = courses;
